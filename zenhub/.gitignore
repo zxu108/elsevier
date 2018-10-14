@@ -1,14 +1,9 @@
-/.metadata/
-
-# Compiled source #
-###################
-*.class
-
 # ignore below folders/files
 /dist/
 /target/
 /.classpath
 /*.project
 /.settings
-/.vscode
 /*.springBeans
+/.vscode
+*.class
