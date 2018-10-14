@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>zen.hub.zenhubweb</groupId>
+  <artifactId>zenwebpage</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  
+	<name>zenwebpage</name>
+	<description>project for zen hub wep</description>
+	
+  	<parent>
+    <groupId>zen.hub.zenhub</groupId>
+  	<artifactId>zenhubparent</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	</parent>
+  	
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>dist</directory>
+							<includes>
+								<include>*</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+				
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v8.12.0</nodeVersion>
+							<npmVersion>6.4.1</npmVersion>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+        	<execution>
+            	<id>prod</id>
+           	<goals>
+                <goal>npm</goal>
+            </goals>
+            	<configuration>
+               		<arguments>run-script build</arguments>
+            	</configuration>
+            <phase>generate-resources</phase>
+        	</execution>
+                
+				</executions>
+			</plugin>
+			
+			<!-- Plugin to copy the content of /angular/dist/ directory to output 
+            directory (ie/ /target/transactionManager-1.0/) -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+                <execution>
+                    <id>default-copy-resources</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <overwrite>true</overwrite>
+                        <!-- This folder is the folder where your angular files 
+                        will be copied to. It must match the resulting war-file name.
+                        So if you have customized the name of war-file for ex. as "app.war"
+                        then below value should be ${project.build.directory}/app/ 
+                        Value given below is as per default war-file name -->
+                        <outputDirectory>${project.basedir}/target/</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/dist</directory>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+			
+		</plugins>
+	</build>
+	
+</project>
