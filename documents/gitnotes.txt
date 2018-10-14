@@ -1,0 +1,27 @@
+To check in a project into git (local only)
+1. In C:\Users\jxu\project\zenhubparent, execute "git init"
+2. In the same folder, execute "git add ."
+3. In the same folder, execute "git commit -m "initial project version""
+
+To create a local remote repo:
+1. In C:\Users\jxu\git, run "git init --bare zenweb.git"
+2. Goto C:\Users\jxu\project\zenhubparent, run "git remote add origin C:\Users\jxu\git\zenweb.git"
+3. In the same folder, run "git push origin master"
+
+4. Check status of remote link: git remote -v
+
+5. To clone repo (go to a new folder): git clone C:\Users\jxu\git\zenweb.git
+
+
+Git operation basic: 
+
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+
+
+Any change about branch should be in local working copy:
+
+1. (in C:\Users\jxu\project\test\zenweb) git branch develop
+2. git checkout develop (switch to develop branch)
+3. git push --set-upstream origin develop (push the branch to central bare repo)
+4. To check branches: git branch
+5. To delete branch: git branch -d develop 

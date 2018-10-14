@@ -1,0 +1,9 @@
+1. deployment package build link: 
+ 	https://www.devglan.com/spring-boot/spring-boot-angular-deployment
+
+2. To run the web, go to C:\Users\jxu\project\zenhubparent\zenhub\target
+and issue this command under cmd window
+
+java -jar -Dspring.profiles.active=local,nonEmbedded zenhub-0.0.1-SNAPSHOT.jar
+
+GIT (?):   file:///C:\Users\jxu\project\zenhubparent
