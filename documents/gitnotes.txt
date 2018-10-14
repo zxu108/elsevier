@@ -25,3 +25,5 @@ Any change about branch should be in local working copy:
 3. git push --set-upstream origin develop (push the branch to central bare repo)
 4. To check branches: git branch
 5. To delete branch: git branch -d develop 
+6. To merge a branch: git merge feature_doc (switch to the destination branch first)
+7. To hard delete a branch in bare repo: git branch -D feature_doc
