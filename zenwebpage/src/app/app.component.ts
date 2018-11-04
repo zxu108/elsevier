@@ -1,5 +1,6 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { DataService } from './data.service';
+import { HomeComponent } from './home/home.component';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { DataService } from './data.service';
 export class AppComponent implements AfterContentInit {
   csu: Object;
   title = 'zenwebpage';
+  homeComponent: HomeComponent;
 
   constructor(private data: DataService) { }
 
@@ -22,3 +24,6 @@ export class AppComponent implements AfterContentInit {
        );
   }
 }
+
+
+

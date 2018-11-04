@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
   pagenum: number;
 	
 constructor(private router: Router) { }
-//constructor() { }
 
 	ngOnInit() {
 	console.log('tst 111');
@@ -24,8 +23,19 @@ constructor(private router: Router) { }
 	  this.pagenum = id;
   }
   
-  goToPage(pageId: string): void {
+  	goToPageFront(pageId: string): void {
 	  console.log('test one');
 		this.router.navigate(['frontpage']);  
 	  } 
+  	
+  	goToPageBody(pageId: string): void {
+	  console.log('test three');
+		this.router.navigate(['bodypage']);  
+	  } 
+ 
+  	goToPagePrinters(pageId: string): void {
+ 		  console.log('test four');
+ 			this.router.navigate(['printers']);  
+  	
+}
 }
