@@ -12,7 +12,7 @@ export class DataService {
  constructor(private http: HttpClient) { }
 
   getCustInfo() {
-    const url = 'http://localhost:8080/api/v1/test/CustInfo/4';
+    const url = 'api/v1/test/CustInfo/1';
   return this.http.get(url, {headers: this.headers});
   }
 
