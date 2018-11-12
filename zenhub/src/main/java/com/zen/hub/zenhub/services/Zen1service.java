@@ -10,4 +10,5 @@ public interface Zen1service {
 	Zenmodel1 getMode1(Integer i1, String s1) ;
 	
 	List<CustomerInfo> selectCust(Integer custId);
+
 }

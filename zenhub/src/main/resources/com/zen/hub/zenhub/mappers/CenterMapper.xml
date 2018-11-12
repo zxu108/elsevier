@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- This is printer center information -->
+
+<mapper namespace="com.zen.hub.zenhub.mappers.CenterMapper">
+
+<resultMap id="CenterResultMap" type="com.zen.hub.zenhub.model.Center">
+	<id column="ID" property="id"/>
+	<result column="CENTER_ID" property="centerId"/>
+	<result column="CENTER_PASSWORD" property="centerPassword"/>
+	<result column="CENTER_NAME" property="centerName"/>
+	<result column="CENTER_DESCRIPTION" property="centerDescription"/>
+	<result column="CENTER_LOGO" property="centerLogo"/>
+	<result column="CENTER_OPEN_DATE" property="centerOpendDate" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>	
+	<result column="CENTER_OWNER_FIRSTNAME" property="centerOwnerFirstName"/>
+	<result column="CENTER_OWNER_MIDNAME" property="centerOwnerMidName"/>
+	<result column="CENTER_OWNER_LASTNAME" property="centerOwnerLastName"/>
+	<result column="CENTER_ADDRESS1" property="centerAddress1"/>
+	<result column="CENTER_ADDRESS2" property="centerAddress2"/>
+	<result column="CENTER_CITY" property="centerCity"/>
+	<result column="CENTER_STATE" property="centerState"/>	
+	<result column="CENTER_ZIPCODE" property="centerZipCode"/>	
+	<result column="CENTER_COUNTRY" property="centerCountry"/>	
+	<result column="CENTER_OWNER_EMAIL" property="centerOwnerEmail"/>		
+	<result column="CENTER_OWNER_LANDPHONE" property="centerOwnerLandPhone"/>		
+	<result column="CENTER_OWNER_MOBILEPHONE" property="centerOwnerMobilePhone"/>	
+	<result column="CENTER_CUSTOMER_RATING" property="centerCustomerRating"/>	
+	<result column="CENTER_LEVEL" property="centerLevel"/>		
+	<result column="CENTER_CLOSE_STARTDATE" property="centerCloseStartDate" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>		
+	<result column="CENTER_CLOSE_ENDDATE" property="centerCloseEndDate" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>	
+	<result column="CENTER_OPEN_STATUS" property="centerOpenStatus"/>	
+	<result column="CENTER_MODIFIEDDATE" property="centerModifiedDate" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>
+	<result column="CENTER_MODIFIEDBY" property="centerModifiedBy"/>													
+</resultMap>
+
+<sql id="centerColumns"> 
+	ID, CENTER_ID, CENTER_PASSWORD, CENTER_NAME, CENTER_DESCRIPTION, CENTER_LOGO, CENTER_OPEN_DATE, CENTER_OWNER_FIRSTNAME, CENTER_OWNER_MIDNAME, CENTER_OWNER_LASTNAME, CENTER_ADDRESS1, CENTER_ADDRESS2,
+	CENTER_CITY, CENTER_STATE, CENTER_ZIPCODE, CENTER_COUNTRY, CENTER_OWNER_EMAIL, CENTER_OWNER_LANDPHONE, CENTER_OWNER_MOBILEPHONE, CENTER_CUSTOMER_RATING, CENTER_LEVEL, CENTER_CLOSE_STARTDATE, 
+	CENTER_CLOSE_ENDDATE, CENTER_OPEN_STATUS, CENTER_MODIFIEDDATE, CENTER_MODIFIEDBY
+</sql>
+
+
+	<select id="selectCenter" resultMap="CenterResultMap">
+    	SELECT <include refid="centerColumns"/>
+    	FROM CENTER ct
+    	WHERE ID = #{id}
+    </select>
+
+</mapper>
+

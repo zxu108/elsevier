@@ -6,13 +6,15 @@ import { HomeComponent } from './home/home.component';
 import { FrontpageComponent } from './home/frontpage/frontpage.component';
 import { BodypageComponent } from './home/bodypage/bodypage.component';
 import { PrintersComponent } from './home/printerspage/printers.component';
+import { CenterComponent } from './home/center/center.component';
 
 import { AppComponent } from './app.component';
 import { DataService } from './data.service';
 
 const appRoutes: Routes = [
                    		{path: 'frontpage', component: FrontpageComponent },
-                   		{path: 'bodypage', component: BodypageComponent },
+                       {path: 'bodypage', component: BodypageComponent },
+                        {path: 'center', component: CenterComponent },
                   		{path: 'printers', component: PrintersComponent }
                    ];
 
@@ -23,6 +25,7 @@ const appRoutes: Routes = [
     HomeComponent,
     FrontpageComponent,
     BodypageComponent,
+    CenterComponent,
     PrintersComponent
   ],
   imports: [

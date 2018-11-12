@@ -38,4 +38,10 @@ constructor(private router: Router) { }
  			this.router.navigate(['printers']);  
   	
 }
+ 	goToPageCenter(pageId: string): void {
+ 		  console.log('test center');
+ 			this.router.navigate(['center']);  
+  	
+}
+
 }

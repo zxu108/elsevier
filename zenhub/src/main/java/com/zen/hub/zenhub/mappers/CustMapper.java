@@ -10,8 +10,5 @@ import com.zen.hub.zenhub.model.CustomerInfo;
 @Mapper
 public interface CustMapper {
 	
-	List<CustomerInfo> selectCust(@Param("customer_id") Integer customer_id);
-	
-//	Integer insertCust(CustomerInfo customerInfo);
-	
+	List<CustomerInfo> selectCust(@Param("customer_id") Integer customer_id);	
 }
