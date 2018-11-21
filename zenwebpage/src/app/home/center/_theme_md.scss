@@ -1,0 +1,47 @@
+$theme-md: (
+   container: (
+       bg: #000000,
+       color: #000,
+       border-color: #000
+   ),
+   left: (
+       bg: #d88880,
+       color: #fff,
+       height: 100%,
+       width: 39%
+   ),
+   left_upper: (
+	       bg: #d88000,
+	       color: #faf,
+	       height: 50%,
+	       width: 100%		   		   
+	),
+   left_lower: (
+	       bg: #df8000,
+	       color: #0af,
+	       height: 50%,
+	       width: 100%		   		   
+	),   
+   right: (
+       bg: #cc6359,
+       color: #fff,
+       height: 100%,
+       width: 59%
+   ),
+   right_upper: (
+	       bg: #d88000,
+	       color: #faf,
+	       height: 50%,
+	       width: 100%		   		   
+	),
+   right_lower: (
+	       bg: #df8000,
+	       color: #0af,
+	       height: 50%,
+	       width: 100%		   		   
+	),        
+   button: (
+       bg: #481b16,
+       color: #0ff
+   )
+);
