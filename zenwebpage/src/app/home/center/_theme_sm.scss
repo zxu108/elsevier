@@ -1,47 +1,47 @@
 $theme-sm: (
    container: (
-       bg: #000000,
+       bg: #FFFFFF,
        color: #000,
        border-color: #000
    ),
    left: (
-       bg: #d88880,
-       color: #fff,
+       bg: #FFFFFF,
+       color: #000000,
        height: 100%,
        width: 100%
    ),
    left_upper: (
-	       bg: #d88000,
-	       color: #faf,
+	       bg: #FFFFFF,
+	       color: #000000,
 	       height: 50%,
 	       width: 100%		   		   
 	),
    left_lower: (
-	       bg: #df8f00,
-	       color: #0af,
+	       bg: #FFFFFF,
+	       color: #000000,
 	       height: 50%,
 	       width: 100%		   		   
 	),   
    right: (
-       bg: #cc6359,
-       color: #fff,
+       bg: #FFFFFF,
+       color: #000000,
        height: 100%,
        width: 100%
    ),
    right_upper: (
-	       bg: #080000,
-	       color: #faf,
+	       bg: #FFFFFF,
+	       color: #000000,
 	       height: 50%,
 	       width: 100%		   		   
 	),
    right_lower: (
-	       bg: #df8000,
-	       color: #0af,
+	       bg: #FFFFFF,
+	       color: #000000,
 	       height: 50%,
 	       width: 100%		   		   
 	),        
    button: (
-       bg: #481b16,
+       bg: #FFFFFF,
        color: #0ff
    )
 );

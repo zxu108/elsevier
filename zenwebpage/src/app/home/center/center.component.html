@@ -1,21 +1,26 @@
 <div class="bw">
        <div class="left">
-
            <div class="left_upper">
-              upper left
+           
+           <div class="card">
+           <img src= "./src/img/zen_hub.jpg" alt="Printer Center" style="width:100%">
            </div>
+           <h1 class="h1_class">{{ct.centerName}}</h1>
+           <p><button>Contact</button></p>
+           </div>
+           		<div class="bpu">
+           			<h3 class="bpv bpw">About The Center</h3>
+           		</div>
            <div class="left_lower">
-              lower left
+           		{{ct.centerDescription}}
            </div>
        </div>
        <div class="right">
        		<div class="right_upper">
-       			upper right
+       		   <p> this is user's review rating and comments <p>
        		</div>
-       		<div class="right_lower">
-       			lower right
+       		<div class="right_lower">       			
+       		<canvas id="canvas">{{chart}}</canvas>
        	</div>
-           Right
-           <button class="button">Button</button>
        </div>
 </div>
