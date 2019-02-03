@@ -48,5 +48,5 @@ export class CenterComponent implements AfterContentInit {
  
   
   });
-  
+  }
 }
