@@ -11,19 +11,27 @@ export class CenterComponent implements AfterContentInit {
   title = 'zenwebbodypage';
   ct: Object;
   chart = []; // This will hold our chart info
+  alerts = [];
 
   constructor(private data: CenterDataService) { }
 
   ngAfterContentInit(): void {
-          this.data.getCenterDetail(1).subscribe(
-      resultObj => {this.ct = resultObj;
+     this.data.getCenterDetail(1).subscribe(
+    		 
+       resultObj => {this.ct = resultObj;
                     console.log('result');
                     console.log(this.ct);
-                  }
-       );
+                  },
+       
+       (error:any) => {
+    	   console.log('get center infor unsuccessful: '+error.message);
+    	   this.alerts.push ({
+    		   type: 'danger',
+    		   msg: 'Error! fetch data error: '+error.message
+    	   });
+       });
 
-  
-  console.log('test one');
+   console.log('test one');
   
   this.chart = new Chart('canvas', {
   type: 'bar',

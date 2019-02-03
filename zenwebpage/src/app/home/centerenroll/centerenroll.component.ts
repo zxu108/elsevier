@@ -161,7 +161,7 @@ export class CenterenrollComponent implements AfterContentInit {
 		  validatedEnroll = false;
 	  }	  
 	  
-	  if (isUndefined(this.centerprofile.centerOwnerLandPhone) || (!this.centerprofile.centerOwnerLandPhone.match('^[0-9]{10}$')) {
+	  if (isUndefined(this.centerprofile.centerOwnerPhone) || (!this.centerprofile.centerOwnerPhone.match('^[0-9]{10}$'))) {
 		  errMessage += ' | Please enter a valid center phone number';
 		  validatedEnroll = false;
 	  }	  
@@ -174,7 +174,7 @@ export class CenterenrollComponent implements AfterContentInit {
   }
   
   	stateSelected(event): void { 		
-  		this.centerprofile.city = event.target.value;
-  		conole.log('city is: '+ this.centerprofile.city);  		
+  		this.centerprofile.centerCity = event.target.value;
+  		console.log('city is: '+ this.centerprofile.centerCity);  		
   	}
 }

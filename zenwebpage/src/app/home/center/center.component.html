@@ -1,4 +1,7 @@
 <div class="bw">
+	<div *ngFor="let alert of alerts"> 
+		<alert [type]="alert.type" dismissible="true"> {{alert.msg}} </alert>
+	</div>
        <div class="left">
            <div class="left_upper">
            
