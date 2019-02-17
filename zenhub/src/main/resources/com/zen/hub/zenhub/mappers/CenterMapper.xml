@@ -73,6 +73,12 @@
 		</if>		
 	</sql>
 	
+	<select id="findCenterWithCenterId" resultMap="CenterResultMap">
+    	SELECT <include refid="centerColumns"/>
+    	FROM CENTER ct
+    	WHERE upper(CENTER_ID) = upper(#{centerId})
+    </select>
+	
 	<select id="getTotalCenterCount" resultType="java.lang.Integer">
 	   	SELECT COUNT(*)
     	FROM CENTER

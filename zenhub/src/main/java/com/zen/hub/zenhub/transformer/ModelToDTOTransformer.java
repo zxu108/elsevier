@@ -8,7 +8,7 @@ import com.zen.hub.zenhub.model.Center;
 import com.zen.hub.zenhub.model.CustomerInfo;
 
 @Component
-public class ModeToDTOTransformer {
+public class ModelToDTOTransformer {
 
 	public CustInfoDTO toCustInfoDTO(CustomerInfo cust) {
 		

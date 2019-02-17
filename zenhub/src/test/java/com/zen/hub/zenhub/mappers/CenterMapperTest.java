@@ -55,6 +55,28 @@ public class CenterMapperTest {
 	
 	@Test
 	@Sql(scripts  = "./CenterTestData.sql")
+	public void findCenterWithCenterId() {
+		
+		List<Center> centerList = centerMapper.findCenterWithCenterId("test1");
+		
+		assertThat(centerList).isNotNull();
+		assertThat(centerList.size()).isEqualTo(1);
+		assertThat(centerList.get(0).getCenterId()).isEqualTo("TEST1");
+		assertThat(centerList.get(0).getCenterCountry()).isEqualTo("USA");
+    	assertThat(centerList.get(0).getCenterCloseStartDate().toString()).isEqualTo("Tue Nov 06 00:00:00 EST 2018");			
+	}
+	
+	@Test
+	@Sql(scripts  = "./CenterTestData.sql")
+	public void findCenterWithCenterIdNoMatch() {
+		
+		List<Center> centerList = centerMapper.findCenterWithCenterId("nomatchtest1");
+		
+		assertThat(centerList).isEmpty();
+	}
+	
+	@Test
+	@Sql(scripts  = "./CenterTestData.sql")
 	public void getTotalCenterCount() {
 		
 		int totalCenters = centerMapper.getTotalCenterCount();

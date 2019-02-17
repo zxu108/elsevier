@@ -13,6 +13,7 @@ import com.zen.hub.zenhub.model.Center;
 public interface CenterMapper {	
 	Center selectCenter(@Param("id") Integer id);	
 	List<Center> getCenterList(@Param("sortByTag") CenterSorting sortByTag, @Param("sortingDirection") SortingDirection sortingDirection);
+	List<Center> findCenterWithCenterId(@Param("centerId") String centerId);
 	int getTotalCenterCount(); 
 	int insertCenter(Center center);
 }

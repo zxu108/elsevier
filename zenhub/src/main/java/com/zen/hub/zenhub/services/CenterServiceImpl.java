@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zen.hub.zenhub.controllers.validators.ValidationException;
 import com.zen.hub.zenhub.mappers.CenterMapper;
 import com.zen.hub.zenhub.mappers.sorting.CenterSorting;
 import com.zen.hub.zenhub.mappers.sorting.SortingDirection;
@@ -54,10 +55,31 @@ public class CenterServiceImpl implements CenterService {
 		LOGGER.info("create new center for {}", center.getCenterId());		
 		center.setCenterOpendDate(new Date());
 		
+		List<Center> centers = findCenterWithCenterId(center.getCenterId());
+		
+		if ( centers != null && !centers.isEmpty()) {
+			throw new ValidationException("Center Alreay Exists");
+		} 
+		
 		int inserted = centerMapper.insertCenter(center);
 
 		LOGGER.info("center created: {}", inserted);
 		
 		return center;
+	}
+
+	@Override
+	public List<Center> findCenterWithCenterId(String centerId) {
+		LOGGER.info("find center for ID {}", centerId);	
+		
+		List<Center> centerList = centerMapper.findCenterWithCenterId(centerId);
+		
+		if (centerList != null) {
+			LOGGER.info("get {} centers for find center with ID", centerList.size(),centerId);
+		} else {
+			LOGGER.info("No center found for {}", centerId);
+		}
+		
+		return centerList;
 	}
 }

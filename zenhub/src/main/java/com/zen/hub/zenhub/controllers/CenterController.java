@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zen.hub.zenhub.dto.CenterDTO;
 import com.zen.hub.zenhub.model.Center;
 import com.zen.hub.zenhub.services.CenterService;
-import com.zen.hub.zenhub.transformer.ModeToDTOTransformer;
+import com.zen.hub.zenhub.transformer.ModelToDTOTransformer;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class CenterController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CenterController.class);
 
 	@Autowired
-	private ModeToDTOTransformer modeToDTOTransformer;
+	private ModelToDTOTransformer modeToDTOTransformer;
 	
 	@Autowired
 	private CenterService centerService;

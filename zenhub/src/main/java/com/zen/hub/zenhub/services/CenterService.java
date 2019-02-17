@@ -10,6 +10,7 @@ public interface CenterService {
 	
 	Center selectCenter(Integer id);	
 	List<Center> getCenterList(CenterSorting sortByTag, SortingDirection sortingDirection);
+	List<Center> findCenterWithCenterId(String centerId);
 	int getTotalCenterCount(); 
 	Center insertCenter(Center center);
 }

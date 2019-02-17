@@ -18,7 +18,7 @@ import com.zen.hub.zenhub.dto.ZenDTO;
 import com.zen.hub.zenhub.model.CustomerInfo;
 import com.zen.hub.zenhub.model.Zenmodel1;
 import com.zen.hub.zenhub.services.Zen1service;
-import com.zen.hub.zenhub.transformer.ModeToDTOTransformer;
+import com.zen.hub.zenhub.transformer.ModelToDTOTransformer;
 import com.zen.hub.zenhub.transformer.Zenconverter;
 
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ public class Zen1Controller {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Zen1Controller.class);
 
 	@Autowired
-	private ModeToDTOTransformer modeToDTOTransformer;
+	private ModelToDTOTransformer modeToDTOTransformer;
 	
 	@Autowired
 	private Zen1service zen1service;
