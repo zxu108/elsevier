@@ -1,7 +1,7 @@
 import { Component, AfterContentInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './centerenroll.service';
-import { CenterProfile } from './centerenrolldata.component';
+import { CenterProfile, CheckInputFlags } from './centerenrolldata.component';
 import { isUndefined } from 'util';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -26,6 +26,9 @@ export class CenterenrollComponent implements AfterContentInit {
   actionMessage2: string;
   action1: string;
   action2: string;
+  
+  checkFlags: CheckInputFlags = new CheckInputFlags;
+
 
   constructor(private data: CenterDataService) { }
 
@@ -110,71 +113,82 @@ export class CenterenrollComponent implements AfterContentInit {
   
   
   validateEnroll(): boolean {
-	  let errMessage = '';
 	  this.alerts = [];
 	  let validatedEnroll: boolean = true;
 	  
+	  this.checkFlags = new CheckInputFlags;
+	  
 	  console.log('id:  '+ this.centerprofile.centerId);
 	  
-	  if (isUndefined(this.centerprofile.centerId)) {
-		  errMessage += 'Please enter a center ID';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerId)) {
+		  console.log('gdasgdh');
 		  validatedEnroll = false;
+		  this.checkFlags.centerId = 'highlightedBox';
+	  }
+		  
+	  if (this.isUndefinedOrNull(this.centerprofile.centerPassword)) {
+		  validatedEnroll = false;
+		  this.checkFlags.passWord = 'highlightedBox';
 	  }
 	  
-	  if (isUndefined(this.centerprofile.centerPassword)) {
-		  errMessage += ' | Please enter a valid password';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerName)) {
 		  validatedEnroll = false;
+		  this.checkFlags.centerName = 'highlightedBox';
 	  }
 	  
-	  if (isUndefined(this.centerprofile.centerName)) {
-		  errMessage += ' | Please enter a valid center name';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerOwnerFirstName)) {
 		  validatedEnroll = false;
+		  this.checkFlags.ownerFirstName = 'highlightedBox';
 	  }
 	  
-	  if (isUndefined(this.centerprofile.centerOwnerFirstName)) {
-		  errMessage += ' | Please enter owner frist name';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerOwnerLastName)) {
 		  validatedEnroll = false;
+		  this.checkFlags.ownerLastName = 'highlightedBox';
 	  }
 	  
-	  if (isUndefined(this.centerprofile.centerOwnerLastName)) {
-		  errMessage += ' | Please enter owner last name';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerAddress1)) {
 		  validatedEnroll = false;
-	  }
-	  
-	  if (isUndefined(this.centerprofile.centerAddress1)) {
-		  errMessage += ' | Please enter center address';
-		  validatedEnroll = false;
+		  this.checkFlags.address1 = 'highlightedBox';
 	  }	  
 	  
-	  if (isUndefined(this.centerprofile.centerCity)) {
-		  errMessage += ' | Please enter center city';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerCity)) {
 		  validatedEnroll = false;
+		  this.checkFlags.city = 'highlightedBox';
 	  }	  
 	  
-	  if (isUndefined(this.centerprofile.centerZipCode)) {
-		  errMessage += ' | Please enter center zip code';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerState)) {
 		  validatedEnroll = false;
+		  this.checkFlags.state = 'highlightedBox';
 	  }	  
 	  
-	  if (isUndefined(this.centerprofile.centerOwnerEmail)) {
-		  errMessage += ' | Please enter a valid center email address';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerZipCode)) {
 		  validatedEnroll = false;
+		  this.checkFlags.zip = 'highlightedBox';
+	  }	  
+	  	  
+	  if (this.isUndefinedOrNull(this.centerprofile.centerOwnerEmail)) {
+		  validatedEnroll = false;
+		  this.checkFlags.email = 'highlightedBox';
 	  }	  
 	  
-	  if (isUndefined(this.centerprofile.centerOwnerPhone) || (!this.centerprofile.centerOwnerPhone.match('^[0-9]{10}$'))) {
-		  errMessage += ' | Please enter a valid center phone number';
+	  if (this.isUndefinedOrNull(this.centerprofile.centerOwnerPhone) || (!this.centerprofile.centerOwnerPhone.match('^[0-9]{10}$'))) {
 		  validatedEnroll = false;
+		  this.checkFlags.phone = 'highlightedBox';
 	  }	  
 	  
 	  if (!validatedEnroll) {
-		this.showAlert('danger', errMessage);
+		this.showAlert('danger', 'Please enter the missing fields');
 	  }
 	  
 	  return validatedEnroll;
   }
   
   	stateSelected(event): void { 		
-  		this.centerprofile.centerCity = event.target.value;
-  		console.log('city is: '+ this.centerprofile.centerCity);  		
+  		this.centerprofile.centerState = event.target.value;
+  		console.log('State is: '+ this.centerprofile.centerState);  		
+  	}
+  	
+  	isUndefinedOrNull = function(val) {
+  	    return isUndefined(val) || val === null || val==='';
   	}
 }

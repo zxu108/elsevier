@@ -2,66 +2,66 @@
   <div *ngFor="let alert of alerts"> 
  	<alert [type]="alert.type" dismissible="true"> {{alert.msg}} </alert>
   </div>
-
+  
  <div class="form-group  form-inline">
-	<label for="centeridInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Login Id * </label>
- 	<input id="centeridInput" class="form-control" type="text" name="centerId" [(ngModel)]="centerprofile.centerId" placeholder="login Id" minlength="1" maxlength="40"/>
+	<label for="centeridInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"> <span class="text-danger">*</span>Center Login Id:</label>
+ 	<input id="centeridInput" class="{{checkFlags.centerId}} form-control input-md" type="text" name="centerId" [(ngModel)]="centerprofile.centerId" placeholder="login Id" minlength="1" maxlength="40" required/>
  </div>
 
  <div class="form-group  form-inline">
-	<label for="centeripasswordInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Login Password * </label>
- 	<input id="centeripasswordInput" type="password" class="form-control" [(ngModel)]="centerprofile.centerPassword" placeholder="Password" minlength="1" maxlength="20"/>
+	<label for="centeripasswordInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center Login Password:</label>
+ 	<input type="password" class="{{checkFlags.passWord}} form-control" [(ngModel)]="centerprofile.centerPassword" placeholder="Password" minlength="1" maxlength="20" required/>
  </div>
 
  <div class="form-group form-inline">
- 	<label for="centernameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Name * </label>
- 	<input id="centernameInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerName" placeholder="Center name to display" minlength="1" maxlength="30"/>
+ 	<label for="centernameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center Name:</label>
+ 	<input id="centernameInput" class="{{checkFlags.centerName}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerName" placeholder="Center name to display" minlength="1" maxlength="30" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerDescInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Description </label>
+	<label for="centerDescInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Description:</label>
 	<textarea class="form-control textareaClass" id="centerDescInput" [(ngModel)]="centerprofile.centerDescription" placeholder="Enter center description here..." col="6" rows="6"></textarea>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerLogInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center log </label>
+	<label for="centerLogInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center log:</label>
 	<input type="file" class="form-control-file" hidden (change)="getLogFile($event)">
 	<small id="centerLogInput" class="form-text text-muted col-xs-offset_2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-2 text-right">Please upload a log picture in pnd or jpg format.</small>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerFirstnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Owner First Name * </label>
-	<input id="centerFirstnameInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerFirstName" minlength="1" maxlength="20"/>
+	<label for="centerFirstnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Owner First Name:</label>
+	<input id="centerFirstnameInput" class="{{checkFlags.ownerFirstName}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerFirstName" minlength="1" maxlength="20" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerMidnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Owner Middle Name </label>
+	<label for="centerMidnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Owner Middle Name:</label>
 	<input id="centerMidnameInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerMidName" minlength="1" maxlength="10"/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerLastnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Owner Last Name * </label>
-	<input id="centerLastnameInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerLastName" minlength="1" maxlength="20"/>
+	<label for="centerLastnameInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Owner Last Name:</label>
+	<input id="centerLastnameInput" class="{{checkFlags.ownerLastName}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerLastName" minlength="1" maxlength="20" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerAddr1Input" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Address 1 * </label>
-	<input id="centerAddr1Input" class="form-control  inputClass" type="text" name="centerName" [(ngModel)]="centerprofile.centerAddress1" minlength="1" maxlength="80"/>
+	<label for="centerAddr1Input" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center Address 1:</label>
+	<input id="centerAddr1Input" class="{{checkFlags.address1}} form-control  inputClass" type="text" name="centerName" [(ngModel)]="centerprofile.centerAddress1" minlength="1" maxlength="80" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerAdd2Input" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Address 2  </label>
+	<label for="centerAdd2Input" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Address 2:</label>
 	<input id="centerAdd2Input" class="form-control  inputClass" type="text" name="centerName" [(ngModel)]="centerprofile.centerAddress2" minlength="1" maxlength="80"/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerCityInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center City * </label>
-	<input id="centerCityInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerCity" minlength="1" maxlength="30"/>
+	<label for="centerCityInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center City:</label>
+	<input id="centerCityInput" class="{{checkFlags.city}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerCity" minlength="1" maxlength="30" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="state" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center State * </label>
-		<select class="form-control" id="state" name="state" (change)="stateSelected($event)">
+	<label for="state" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center State:</label>
+		<select class="{{checkFlags.state}} form-control" id="state" name="state" (change)="stateSelected($event)">
 			<option value="">N/A</option>
 			<option value="AK">Alaska</option>
 			<option value="AL">Alabama</option>
@@ -119,32 +119,33 @@
  </div>
 
  <div class="form-group form-inline">
-	<label for="centerZipInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Zip Code: </label>
-	<input id="centerZipInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerZipCode" minlength="1" maxlength="10"/>
+	<label for="centerZipInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Center Zip Code:</label>
+	<input id="centerZipInput" class="{{checkFlags.zip}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerZipCode" minlength="1" maxlength="10" required/>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerCountryInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Country: </label>
+	<label for="centerCountryInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Center Country:</label>
 	<input id="centerCountryInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerCountry" placeholder="USA" minlength="1" maxlength="20"/>
  </div>
  
  <div class="form-group form-inline">
- 	<label  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right" for="CenterInputEmail1">Email address</label>
- 	<input type="email" class="form-control" id="CenterInputEmail1" aria-describedby="emailHelp"  [(ngModel)]="centerprofile.centerOwnerEmail" placeholder="Enter email"/>
- 	<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+ 	<label  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right" for="CenterInputEmail1"><span class="text-danger">*</span>Email address:</label>
+ 	<input type="email" class="form-control" id="CenterInputEmail1" aria-describedby="emailHelp"  [(ngModel)]="centerprofile.centerOwnerEmail" placeholder="Enter email" required/>
+ 	<small id="emailHelp" class="{{checkFlags.email}} form-text text-muted">We'll never share your email with anyone else.</small>
  </div>
  
  <div class="form-group form-inline">
-	<label for="centerPhoneInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right">Contact Phone Number: </label>
-	<input id="centerPhoneInput" class="form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerPhone" minlength="1" maxlength="12"/>
+	<label for="centerPhoneInput" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 control-label text-right"><span class="text-danger">*</span>Contact Phone Number:</label>
+	<input id="centerPhoneInput" class="{{checkFlags.phone}} form-control" type="text" name="centerName" [(ngModel)]="centerprofile.centerOwnerPhone" minlength="1" maxlength="12" required/>
  </div>
  
  <div class="row">
  	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-right">
- 	<button type="submit" class="btn btn-secondary" (click)="handleModal('Are you sure', 'Enroll Center', 'Yes', 'No', 'SaveYes', 'SaveNo')">submit</button>
+ 	<button type="submit" class="btn btn-secondary" (click)="handleModal('Are you sure to save?', 'Enroll Center', 'Yes', 'No', 'SaveYes', 'SaveNo')">Submit</button>
+ 	<button type="submit" class="btn btn-secondary" (click)="handleModal('Are you sure to cancel?', 'Enroll Center', 'Yes', 'No', 'CancelYes', 'CancelNo')">Cancel</button>
  	</div>
  </div>
-
+ 
  <div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
  	<div class="modal-dialog">
  		<div class="modal-content">

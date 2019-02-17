@@ -17,3 +17,17 @@ export class CenterProfile {
 	centerOwnerEmail: string;	
 	centerOwnerPhone: string;
 }
+
+export class CheckInputFlags {
+	centerId: string;
+	passWord: string;
+	centerName: string;
+	ownerFirstName: string;
+	ownerLastName: string;
+	address1: string;
+	city: string;
+	state: string;
+	zip: string;
+	email: string;
+	phone: string;	
+}
