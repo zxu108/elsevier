@@ -1,5 +1,4 @@
 export class CenterProfile {	
-	id: string;
 	centerPassword: string;
 	centerId: string;
 	centerName: string;
@@ -16,6 +15,8 @@ export class CenterProfile {
 	centerCountry: string;	
 	centerOwnerEmail: string;	
 	centerOwnerPhone: string;
+	centerCloseStartDate: Date;
+	centerOpenStatus: boolean;
 }
 
 export class CheckInputFlags {

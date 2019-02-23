@@ -1,9 +1,12 @@
-import { Component, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, AfterContentInit, ViewChild} from '@angular/core';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './centerenroll.service';
 import { CenterProfile, CheckInputFlags } from './centerenrolldata.component';
 import { isUndefined } from 'util';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+
+//import * as FileSaver from 'file-saver';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: './centerenroll.component.html',
@@ -19,6 +22,7 @@ export class CenterenrollComponent implements AfterContentInit {
   centerName: string = 'please enter a name of your center';
   centerprofile: CenterProfile = new CenterProfile;
   alerts = [];
+  filelocation: FileList;
   
   titleMessage: string;
   bodyMessage: string;
@@ -30,11 +34,11 @@ export class CenterenrollComponent implements AfterContentInit {
   checkFlags: CheckInputFlags = new CheckInputFlags;
 
 
-  constructor(private data: CenterDataService) { }
+  constructor(private centerService: CenterDataService) { }
 
   ngAfterContentInit(): void {
 	  	this.centerprofile.centerCountry = 'USA';
-          this.data.getCenterDetail(1).subscribe(
+          this.centerService.getCenterDetail(1).subscribe(
       resultObj => {this.ct = resultObj;
                     console.log('result');
                     console.log(this.ct);
@@ -93,6 +97,7 @@ export class CenterenrollComponent implements AfterContentInit {
   
   SaveYes(): void {
 	  console.log('yes clicked');
+	  this.createNewCenter()
 	  this.modal.hide();	  
   }
   
@@ -190,5 +195,25 @@ export class CenterenrollComponent implements AfterContentInit {
   	
   	isUndefinedOrNull = function(val) {
   	    return isUndefined(val) || val === null || val==='';
+  	}
+  	
+  	getLogFile(event): void {
+  		this.filelocation = event.target.files;
+  		console.log('file is: '+ this.filelocation);
+  		if (this.filelocation.length > 0) {
+ 		this.createNewCenter();
+  		}
+  	}
+  	
+  	createNewCenter(): void {
+  		this.centerprofile.centerCloseStartDate = new Date();
+  		this.centerprofile.centerOpenStatus = true;
+        this.centerService.createCenter(this.centerprofile, this.filelocation).subscribe(
+        	resultObj => {this.ct = resultObj;
+                  		console.log('result');
+                  		console.log(this.ct);
+                	}
+     );
+  		
   	}
 }
