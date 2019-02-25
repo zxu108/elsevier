@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FrontpageComponent } from './home/frontpage/frontpage.component';
@@ -15,6 +15,7 @@ import { ModalModule } from "ngx-bootstrap";
 
 import { AppComponent } from './app.component';
 import { DataService } from './data.service';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 const appRoutes: Routes = [
                    		{path: 'frontpage', component: FrontpageComponent },
@@ -43,7 +44,14 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [DataService],
+  providers: [
+              DataService,
+              {
+              provide: HTTP_INTERCEPTORS,
+              useClass: HttpErrorInterceptor,	  
+              multi: true
+              }
+              ],
   bootstrap: [AppComponent],
   exports: [ RouterModule, ModalModule]
 })

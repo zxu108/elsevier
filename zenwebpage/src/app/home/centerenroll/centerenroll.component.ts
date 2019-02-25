@@ -200,9 +200,7 @@ export class CenterenrollComponent implements AfterContentInit {
   	getLogFile(event): void {
   		this.filelocation = event.target.files;
   		console.log('file is: '+ this.filelocation);
-  		if (this.filelocation.length > 0) {
- 		this.createNewCenter();
-  		}
+
   	}
   	
   	createNewCenter(): void {
@@ -210,9 +208,20 @@ export class CenterenrollComponent implements AfterContentInit {
   		this.centerprofile.centerOpenStatus = true;
         this.centerService.createCenter(this.centerprofile, this.filelocation).subscribe(
         	resultObj => {this.ct = resultObj;
-                  		console.log('result');
                   		console.log(this.ct);
-                	}
+     		    	   this.alerts.push ({
+    		    		   type: 'success',
+    		    		   msg: 'Congratulation! Your center is successfully created.'
+    		    	   });
+                	},
+        	
+        	(error:any) => {
+        		    	   console.log('Create center unsuccessful: '+error.message);
+        		    	   this.alerts.push ({
+        		    		   type: 'danger',
+        		    		   msg: 'Error! create center error: '+error.message
+        		    	   });
+        		       }
      );
   		
   	}

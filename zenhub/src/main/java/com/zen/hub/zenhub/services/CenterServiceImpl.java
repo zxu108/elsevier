@@ -58,8 +58,11 @@ public class CenterServiceImpl implements CenterService {
 		List<Center> centers = findCenterWithCenterId(center.getCenterId());
 		
 		if ( centers != null && !centers.isEmpty()) {
+			LOGGER.debug("Center is already there");
 			throw new ValidationException("Center Alreay Exists");
 		} 
+		
+		LOGGER.debug("center create object is : {}", center.toString());
 		
 		int inserted = centerMapper.insertCenter(center);
 

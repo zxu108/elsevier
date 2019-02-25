@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.zen.hub.zenhub.controllers.validators.CenterValidator;
 import com.zen.hub.zenhub.controllers.validators.ValidationException;
 import com.zen.hub.zenhub.dto.CenterDTO;
 import com.zen.hub.zenhub.dto.CenterEnrollDTO;
 import com.zen.hub.zenhub.model.Center;
 import com.zen.hub.zenhub.services.CenterService;
+import com.zen.hub.zenhub.transformer.DTOToModelTransformer;
 import com.zen.hub.zenhub.transformer.ModelToDTOTransformer;
 
 import io.swagger.annotations.Api;
@@ -34,6 +36,12 @@ public class CenterController {
 
 	@Autowired
 	private ModelToDTOTransformer modeToDTOTransformer;
+	
+	@Autowired
+	private DTOToModelTransformer dtoToModelTransformer;
+	
+	@Autowired
+	private CenterValidator centerValidator;
 	
 	@Autowired
 	private CenterService centerService;
@@ -54,41 +62,44 @@ public CenterDTO getCenter(@PathVariable("id") Integer id) {
 	return centerDTO;
 }
 
-@PostMapping(path="/File")
+@PostMapping(path="/File", produces=MediaType.APPLICATION_JSON_VALUE)
 @ApiOperation("Center creation")
-public CenterDTO createCenter(@RequestParam("file") MultipartFile file, @RequestParam(value = "param1", required = false) String param1, @RequestParam(value = "CenterData", required = false) String CenterData) {
-
+public CenterDTO createCenter(@RequestParam("file") MultipartFile[] file, @RequestParam(value = "param1", required = false) String param1, @RequestParam(value = "CenterData", required = true) String CenterData) {
+	String fileName;
+	byte[] bytes;
 	CenterDTO ctDto = new CenterDTO();
 	
 	LOGGER.info("To upload center log info for");
 	LOGGER.info("Test data is: {}", param1 );
 	
 	try {
-	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	 fileName = StringUtils.cleanPath(file[0].getOriginalFilename());
 	
-	byte[] bytes = file.getBytes();
+	bytes = file[0].getBytes();
 	
 	LOGGER.info("Filename is {}\n", fileName);
 	LOGGER.info("CenterData is {}\n", CenterData);
 	LOGGER.info("File size is {}\n", bytes.length);
-	
-	Gson gson = new Gson(); // Or use new GsonBuilder().create();
-	CenterEnrollDTO target2 = gson.fromJson(CenterData, CenterEnrollDTO.class); // deserializes json into target2
-	
-	LOGGER.info("Field is {}\n", target2.getCenterAddress1());
-	
 	} catch (Exception e) {
-		new ValidationException("You failed to upload " + file.getName() + ": " + e.getMessage());
-    }
-	 
-
-
-			
-//	Center center = centerService.selectCenter(id);
-//	
-//	CenterDTO centerDTO = modeToDTOTransformer.toCenterDTO(center);
-//	
-//	LOGGER.info("The result for {} is {}\n", id, centerDTO.toString());
+		throw new ValidationException("You failed to upload tset : " + e.getMessage());
+	}	
+	Gson gson = new Gson(); // Or use new GsonBuilder().create();
+	CenterEnrollDTO centerEnrollDTO = gson.fromJson(CenterData, CenterEnrollDTO.class); // deserializes json into target2
+	
+	LOGGER.info("Field is {} and {} \n", centerEnrollDTO.getCenterAddress1(), centerEnrollDTO.getCenterCloseStartDate());
+	
+	centerValidator.validateEnrollInsert(centerEnrollDTO);
+	
+	Center center = dtoToModelTransformer.toCenterEnroll(centerEnrollDTO);
+	
+	center.setCenterLogo(bytes);
+	center.setId(10);
+	
+	Center centerResult = centerService.insertCenter(center);
+	
+	ctDto = modeToDTOTransformer.toCenterDTO(centerResult);	
+	
+	LOGGER.info("The result for {} is {}\n", ctDto.getId(), ctDto.toString());
 
 	return ctDto;
 }

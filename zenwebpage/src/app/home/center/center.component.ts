@@ -52,9 +52,6 @@ export class CenterComponent implements AfterContentInit {
       text: 'Predicted world population (millions) in 2050'
     }
   }
-  
- 
-  
   });
   }
 }

@@ -16,11 +16,7 @@ export class CenterDataService {
 
   getCenterDetail(id: number): Observable<any> {
   const url = 'api/v1/center/' + id.toString();
-  return this.http.get(url, {headers: this.headers}).catch(this.handleError);
+  return this.http.get(url, {headers: this.headers})
   }
   
-  private handleError(error: any) {
-	  console.log(error.error);
-	  return Observable.throw(error.error);
-  }
 }

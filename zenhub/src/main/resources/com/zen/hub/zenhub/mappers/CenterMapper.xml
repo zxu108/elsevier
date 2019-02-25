@@ -85,8 +85,35 @@
 	</select>
 	
 	<insert id="insertCenter" parameterType="Center" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
-    	insert into  CENTER VALUES (
-    	#{id, jdbcType=NUMERIC},
+    	insert into  CENTER 
+    	(
+ 		CENTER_ID,
+		CENTER_PASSWORD,
+		CENTER_NAME,
+		CENTER_DESCRIPTION,
+		CENTER_LOGO,
+		CENTER_OPEN_DATE,
+		CENTER_OWNER_FIRSTNAME,
+		CENTER_OWNER_MIDNAME,
+		CENTER_OWNER_LASTNAME,
+		CENTER_ADDRESS1,
+		CENTER_ADDRESS2,
+		CENTER_CITY,
+		CENTER_STATE,
+		CENTER_ZIPCODE,
+		CENTER_COUNTRY,
+		CENTER_OWNER_EMAIL,	
+		CENTER_OWNER_LANDPHONE,	
+		CENTER_OWNER_MOBILEPHONE,
+		CENTER_CUSTOMER_RATING,
+		CENTER_LEVEL,
+		CENTER_CLOSE_STARTDATE,
+		CENTER_CLOSE_ENDDATE,
+		CENTER_OPEN_STATUS,
+		CENTER_MODIFIEDDATE,
+		CENTER_MODIFIEDBY													
+    	)
+    	VALUES (
     	#{centerId, jdbcType=VARCHAR},
     	#{centerPassword, jdbcType=VARCHAR},
     	#{centerName, jdbcType=VARCHAR},
