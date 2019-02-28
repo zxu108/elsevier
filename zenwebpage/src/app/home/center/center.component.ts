@@ -1,4 +1,5 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, SecurityContext} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './center.service';
 
@@ -12,27 +13,59 @@ export class CenterComponent implements AfterContentInit {
   ct: Object;
   chart = []; // This will hold our chart info
   alerts = [];
+  logoToShow: any;
+  isImageLoading: boolean = false;
 
-  constructor(private data: CenterDataService) { }
+  constructor(private data: CenterDataService, private sanitizer: DomSanitizer) { }
 
   ngAfterContentInit(): void {
-     this.data.getCenterDetail(1).subscribe(
-    		 
-       resultObj => {this.ct = resultObj;
-                    console.log('result');
-                    console.log(this.ct);
-                  },
-       
-       (error:any) => {
-    	   console.log('get center infor unsuccessful: '+error.message);
-    	   this.alerts.push ({
-    		   type: 'danger',
-    		   msg: 'Error! fetch data error: '+error.message
-    	   });
-       });
-
-   console.log('test one');
+	  this.getCenter(16);
+	  this.displayChart();
+	  this.getImageFromService();
+  }
   
+  // This service retrieves an image from backend database through controller and pass to html 
+  // for display
+  // Zhengyi Xu 
+  // 2/27/2019
+  getImageFromService() {
+      this.isImageLoading = true;
+      this.data.getCenterLogo('centerId1').subscribe(rslt => {
+        this.createImageFromBlob(rslt);
+        this.isImageLoading = false;
+      }, error => {
+        this.isImageLoading = false;
+        console.log(error);
+      });
+  }
+  
+  createImageFromBlob(image: Blob) {
+	   let reader = new FileReader();
+	   reader.addEventListener("load", () => {
+		   this.logoToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result);
+	   }, false);
+
+	   if (image) {
+	      reader.readAsDataURL(image);
+	   }
+	}
+  
+  getCenter(Id: number): void {
+	  	this.data.getCenterDetail(Id).subscribe(		 
+	       resultObj => {this.ct = resultObj;
+	                    console.log('result');
+	                    console.log(this.ct);
+	                  },	       
+	       (error:any) => {
+	    	   console.log('get center infor unsuccessful: '+error.message);
+	    	   this.alerts.push ({
+	    		   type: 'danger',
+	    		   msg: 'Error! fetch data error: '+error.message
+	    	   });
+	       });
+  }
+  
+  displayChart(): void {
   this.chart = new Chart('canvas', {
   type: 'bar',
   data: {

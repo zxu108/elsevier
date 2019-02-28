@@ -1,5 +1,7 @@
 package com.zen.hub.zenhub.controllers;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,6 @@ public class CenterController {
 	
 @RequestMapping(path="/{id}", method = RequestMethod.GET )
 @ApiOperation("Center detail infromation")
-
 public CenterDTO getCenter(@PathVariable("id") Integer id) {
 
 	LOGGER.info("To get center info for {}\n", id);
@@ -60,6 +61,21 @@ public CenterDTO getCenter(@PathVariable("id") Integer id) {
 	LOGGER.info("The result for {} is {}\n", id, centerDTO.toString());
 
 	return centerDTO;
+}
+
+@RequestMapping(path="/Log/{centerId}", method = RequestMethod.GET )
+@ApiOperation("Center detail infromation")
+public byte[] getCenterLogo(@PathVariable("centerId") String centerId) {
+
+	LOGGER.info("To get center info for {}\n", centerId);
+	
+	List<Center> centers = centerService.findCenterWithCenterId(centerId);
+	
+	CenterDTO centerDTO = modeToDTOTransformer.toCenterDTO(centers.get(0));
+	
+	LOGGER.info("The result for {} is name {} log is {}\n", centerId, centerDTO.getCenterName(), centerDTO.getCenterLogo());
+
+	return centerDTO.getCenterLogo();
 }
 
 @PostMapping(path="/File", produces=MediaType.APPLICATION_JSON_VALUE)

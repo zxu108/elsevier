@@ -4,9 +4,8 @@
 	</div>
        <div class="left">
            <div class="left_upper">
-           
            <div class="card">
-           <img src= "./src/img/zen_hub.jpg" alt="Printer Center" style="width:100%">
+           		<img [src]= "logoToShow" alt="Place image title" *ngIf="!isImageLoading; else noImageFound"> 
            </div>
            <h1 class="h1_class">{{ct.centerName}}</h1>
            <p><button>Contact</button></p>
