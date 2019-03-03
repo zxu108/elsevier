@@ -3,13 +3,20 @@
 		<alert [type]="alert.type" dismissible="true"> {{alert.msg}} </alert>
 	</div>
        <div class="left">
-           <div class="left_upper">
-           <div class="card">
-           		<img [src]= "logoToShow" alt="Place image title" *ngIf="!isImageLoading; else noImageFound"> 
-           </div>
+           <div class="left_upper form-horizontal">
+           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+           		<img class="img-rounded" [src]= "logoToShow" alt="Place image title" *ngIf="!isImageLoading; else noImageFound" height="80" width="80"> 
+           </div>  
+           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
            <h1 class="h1_class">{{ct.centerName}}</h1>
-           <p><button>Contact</button></p>
            </div>
+           <p><button>{{ct.centerCity}},  {{ct.centerState}},  {{ct.centerZipCode}}</button></p>
+           </div>
+           
+           <agm-map [latitude]="lat" [longitude]="lng">
+           <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+           </agm-map>
+           
            		<div class="bpu">
            			<h3 class="bpv bpw">About The Center</h3>
            		</div>

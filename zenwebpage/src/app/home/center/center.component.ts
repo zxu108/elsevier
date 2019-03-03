@@ -16,6 +16,10 @@ export class CenterComponent implements AfterContentInit {
   logoToShow: any;
   isImageLoading: boolean = false;
 
+  Maptitle: string = 'My first AGM project';
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+
   constructor(private data: CenterDataService, private sanitizer: DomSanitizer) { }
 
   ngAfterContentInit(): void {
@@ -87,4 +91,5 @@ export class CenterComponent implements AfterContentInit {
   }
   });
   }
+  
 }

@@ -17,7 +17,7 @@
            			.h1_class {
            			  color: #000000; /* Grey text */ 
            			  text-align: center;
-           			  font-size: 5rem;
+           			  font-size: 3rem;
            			}
            			
            			button {
@@ -121,6 +121,9 @@
 //                   width: 100%;
                }
                
+               agm-map {
+            		  height: 200px;
+            		}              
                
            } @else {
                .#{$section} {
@@ -142,6 +145,7 @@
            }
        }
    }
+
 
 @include media-breakpoint-only(xs) {
 @include themable(theme-xs, $theme-xs);
