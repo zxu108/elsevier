@@ -1,4 +1,4 @@
-import { Component, AfterContentInit, SecurityContext} from '@angular/core';
+import { Component, AfterContentInit, SecurityContext, NgZone, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './center.service';
@@ -8,25 +8,56 @@ import { CenterDataService } from './center.service';
   styleUrls: ['./center.component.scss']
 })
 
-export class CenterComponent implements AfterContentInit {
+export class CenterComponent implements AfterContentInit, OnInit {
   title = 'zenwebbodypage';
   ct: Object;
   chart = []; // This will hold our chart info
   alerts = [];
   logoToShow: any;
   isImageLoading: boolean = false;
+  isMapLoading: boolean = true;
 
   Maptitle: string = 'My first AGM project';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
-
-  constructor(private data: CenterDataService, private sanitizer: DomSanitizer) { }
-
+  public lat: number = 51.678418; // 39.7844603; 
+  public lng: number = 7.809007; // -75.71229819999999; 
+  public zoom: number;
+  mapRslt: any[];
+ 
+  constructor(private data: CenterDataService, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
+		  
   ngAfterContentInit(): void {
 	  this.getCenter(16);
 	  this.displayChart();
 	  this.getImageFromService();
+//	  console.log('Before map');
+//	  this.getlatlng('3 isabella ct, hockessin, De 19707');
+//	  this.lat = this.mapRslt[0].geometry.location.lat;
+//	  this.lng = this.mapRslt[0].geometry.location.lng;	  
+//	  console.log('gash ds cgdshgc adhgvdahgvhds ');
+//	  console.log('lat: ' +this.lat);
+//	  console.log('lng: ' +this.lng);	  
   }
+  
+  ngOnInit() {
+	  console.log('before');
+	  this.getlatlng('3 isabella ct, hockessin, De 19707');
+
+	  console.log('middle: ' + JSON.stringify(this.mapRslt[0]));
+      //verify result
+      if (this.mapRslt[0].geometry === undefined || this.mapRslt[0].geometry === null) {
+        return;
+      }
+	  console.log('after');
+	  this.ngZone.run(() => {
+          //get the place result
+
+          //set latitude, longitude and zoom
+          this.lat = this.mapRslt[0].geometry.location.lat();
+          this.lng = this.mapRslt[0].geometry.location.lng();
+          this.zoom = 12;
+        });
+  }
+  
   
   // This service retrieves an image from backend database through controller and pass to html 
   // for display
@@ -68,6 +99,35 @@ export class CenterComponent implements AfterContentInit {
 	    	   });
 	       });
   }
+  
+  getlatlng(address: string): void {
+	  	this.isMapLoading = true;
+	  	this.data.getlatlng(address).subscribe(		 
+	       resultObj => {
+	    	   			this.mapRslt = resultObj;
+	                    this.isMapLoading = false;
+                        
+	                    this.ngZone.run(() => {
+	                        //set latitude, longitude and zoom
+	                        this.lat = this.mapRslt.results[0].geometry.location.lat;
+	                        this.lng = this.mapRslt.results[0].geometry.location.lng;
+	                        
+	                        console.log('lat = ' + this.lat);
+	                        console.log('lng = ' + this.lng);
+	                        this.zoom = 8;
+	                      });
+	                    
+	                  },	       
+	       (error:any) => {
+	    	   console.log('get center infor unsuccessful: '+error.message);
+	    	   this.alerts.push ({
+	    		   type: 'danger',
+	    		   msg: 'Error! fetch data error: '+error.message	    		  
+	    	   });
+	    	   this.isMapLoading = false;
+	       });
+}
+  
   
   displayChart(): void {
   this.chart = new Chart('canvas', {

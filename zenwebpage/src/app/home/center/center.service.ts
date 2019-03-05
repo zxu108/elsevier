@@ -21,4 +21,8 @@ export class CenterDataService {
   getCenterLogo(centerId: string): Observable<Blob> {
 	    return this.http.get('api/v1/center/Log/'+centerId, {responseType: "blob"});
 	}
+  
+  getlatlng(address: string): Observable<any> {
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAi1hgsq5UmT-y4VjBKqqlqGN8fbYP8ODg&address=' + address);
+  }
 }

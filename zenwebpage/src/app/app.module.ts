@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from "ngx-bootstrap";
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { DataService } from './data.service';
