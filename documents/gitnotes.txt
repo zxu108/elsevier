@@ -27,3 +27,10 @@ Any change about branch should be in local working copy:
 5. To delete branch: git branch -d develop 
 6. To merge a branch: git merge feature_doc (switch to the destination branch first)
 7. To hard delete a branch in bare repo: git branch -D feature_doc
+
+When create new project from Git Repo:
+
+1. clone existing git (2 option)
+2. Check "import project" (?) option.
+3. When done, import the project as Existing Maven Project.
+4. Usually we are working on feature, it will be merged to Dev when phase is done.

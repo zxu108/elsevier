@@ -17,8 +17,10 @@ User: jxu/SmartBoy1
 grant all privileges on zenhub.* to 'jxu'@'127.0.0.1' identified by 'SmartBoy1';
 
 
-To run service in Eclise:
-zenhub/com.zen.hub.zenhub.ZenhubApplication/-Dspring.profiles.active=local,nonEmbedded
+To run service in Eclise (in Run Configurations):
+Project: zenhub
+Main Class: com.zen.hub.zenhub.ZenhubApplication
+Arguments-> VM Arguments: -Dspring.profiles.active=local,nonEmbedded
 
 To test the page: 
 http://localhost:4200/
