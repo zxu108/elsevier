@@ -1,7 +1,11 @@
-import { Component, AfterContentInit, SecurityContext, NgZone, OnInit} from '@angular/core';
+/// <reference types="@types/googlemaps" />
+import { Component, AfterContentInit, SecurityContext, NgZone, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './center.service';
+import { MapsAPILoader} from '@agm/core';
+
+declare var google: any;
 
 @Component({
   templateUrl: './center.component.html',
@@ -10,55 +14,40 @@ import { CenterDataService } from './center.service';
 
 export class CenterComponent implements AfterContentInit, OnInit {
   title = 'zenwebbodypage';
+  @ViewChild('gmap') gmapElement: any;
   ct: Object;
   chart = []; // This will hold our chart info
   alerts = [];
   logoToShow: any;
   isImageLoading: boolean = false;
-  isMapLoading: boolean = true;
+  geocoder: google.maps.Geocoder;
+  map: google.maps.Map;
 
-  Maptitle: string = 'My first AGM project';
-  public lat: number = 51.678418; // 39.7844603; 
-  public lng: number = 7.809007; // -75.71229819999999; 
+  public lat: number; 
+  public lng: number; 
   public zoom: number;
-  mapRslt: any[];
  
-  constructor(private data: CenterDataService, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
+  constructor(public mapsApiLoader: MapsAPILoader, private data: CenterDataService, private sanitizer: DomSanitizer, private ngZone: NgZone) {
+	  
+	  this.mapsApiLoader.load().then(() => {
+	      this.geocoder = new google.maps.Geocoder();
+	    });
+  }
 		  
   ngAfterContentInit(): void {
 	  this.getCenter(16);
 	  this.displayChart();
 	  this.getImageFromService();
-//	  console.log('Before map');
-//	  this.getlatlng('3 isabella ct, hockessin, De 19707');
-//	  this.lat = this.mapRslt[0].geometry.location.lat;
-//	  this.lng = this.mapRslt[0].geometry.location.lng;	  
-//	  console.log('gash ds cgdshgc adhgvdahgvhds ');
-//	  console.log('lat: ' +this.lat);
-//	  console.log('lng: ' +this.lng);	  
   }
   
   ngOnInit() {
+	  console.log('before 1');
+	  this.initializGMap();
 	  console.log('before');
-	  this.getlatlng('3 isabella ct, hockessin, De 19707');
-
-	  console.log('middle: ' + JSON.stringify(this.mapRslt[0]));
-      //verify result
-      if (this.mapRslt[0].geometry === undefined || this.mapRslt[0].geometry === null) {
-        return;
-      }
-	  console.log('after');
-	  this.ngZone.run(() => {
-          //get the place result
-
-          //set latitude, longitude and zoom
-          this.lat = this.mapRslt[0].geometry.location.lat();
-          this.lng = this.mapRslt[0].geometry.location.lng();
-          this.zoom = 12;
-        });
+	  	  
+	  this.findLocation('3 isabella ct, hockessin, De 19707');
   }
-  
-  
+	  
   // This service retrieves an image from backend database through controller and pass to html 
   // for display
   // Zhengyi Xu 
@@ -100,35 +89,6 @@ export class CenterComponent implements AfterContentInit, OnInit {
 	       });
   }
   
-  getlatlng(address: string): void {
-	  	this.isMapLoading = true;
-	  	this.data.getlatlng(address).subscribe(		 
-	       resultObj => {
-	    	   			this.mapRslt = resultObj;
-	                    this.isMapLoading = false;
-                        
-	                    this.ngZone.run(() => {
-	                        //set latitude, longitude and zoom
-	                        this.lat = this.mapRslt.results[0].geometry.location.lat;
-	                        this.lng = this.mapRslt.results[0].geometry.location.lng;
-	                        
-	                        console.log('lat = ' + this.lat);
-	                        console.log('lng = ' + this.lng);
-	                        this.zoom = 8;
-	                      });
-	                    
-	                  },	       
-	       (error:any) => {
-	    	   console.log('get center infor unsuccessful: '+error.message);
-	    	   this.alerts.push ({
-	    		   type: 'danger',
-	    		   msg: 'Error! fetch data error: '+error.message	    		  
-	    	   });
-	    	   this.isMapLoading = false;
-	       });
-}
-  
-  
   displayChart(): void {
   this.chart = new Chart('canvas', {
   type: 'bar',
@@ -151,5 +111,37 @@ export class CenterComponent implements AfterContentInit, OnInit {
   }
   });
   }
+  
+  // this function initialize the google map services
+  initializGMap(): void {
+	    this.geocoder = new google.maps.Geocoder();
+	    let mapProp = {
+	    	      center: new google.maps.LatLng(18.5793, 73.8143),
+	    	      zoom: 10,
+	    	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    	    };
+	    	    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+	  }
+  
+  // this function converts address to lat and lng location for google map
+  findLocation(address): void {
+	    if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
+	    this.geocoder.geocode({
+	      'address': address
+	    }, (results, status) => {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	    	  this.map.setZoom(10);
+	    	  this.map.setCenter(results[0].geometry.location);
+	    	  this.lat = results[0].geometry.location.lat();
+	    	  this.lng = results[0].geometry.location.lng();
+	          var marker = new google.maps.Marker({
+	              map: this.map,
+	              position: results[0].geometry.location
+	          });
+	      } else {
+	        alert("Sorry, this search produced no results for the reason: "+ status);
+	      }
+	    })
+	  }
   
 }

@@ -23,9 +23,7 @@
            			{{ct.centerDescription}}
            		</div>
            		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-           			<agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom>
-           				<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-           			</agm-map>
+           			<div #gmap style="width:100%;height:300px" ></div>
            		</div>
            </div>
        </div>

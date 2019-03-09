@@ -4,3 +4,6 @@ AIzaSyCCQeCW6uugqzcV7pr7492P0fjKeWgnWxA
 
 My First Project
 AIzaSyAi1hgsq5UmT-y4VjBKqqlqGN8fbYP8ODg
+
+
+The key is in two files: index.html and app.module.ts. Maybe we can get rid of the one in app.module.ts

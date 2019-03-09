@@ -120,26 +120,21 @@
                    padding: 1rem;
 //                   width: 100%;
                }
-               
-               agm-map {
-            		  height: 200px;
-            		}              
-               
            } @else {
                .#{$section} {
                    background-color: map-get($map, bg);
                    color: map-get($map, color);
-                   		&:hover{
-  					 		color: darken(#FF0FFF, 10%);
- 						}  
+//                   		&:hover{
+//  					 		color: darken(#FF0FFF, 10%);
+// 						}  
 
                  @if ($section != button) {
    					height: map-get($map, height);
    					width: map-get($map, width);
 				} @else {
-   					&:hover {
-       				background-color: lighten(map-get($map, bg), 20%);
-   					}
+//   					&:hover {
+//       				background-color: lighten(map-get($map, bg), 20%);
+//   					}
 				}
                }
            }

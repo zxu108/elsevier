@@ -84,7 +84,7 @@
     	FROM CENTER
 	</select>
 	
-	<insert id="insertCenter" parameterType="Center" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+	<insert id="insertCenter" parameterType="com.zen.hub.zenhub.model.Center" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
     	insert into  CENTER 
     	(
  		CENTER_ID,
