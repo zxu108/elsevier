@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- This is printer center audit information -->
+	
+<mapper namespace="com.zen.hub.zenhub.mappers.audit.CenterAuditMapper">
+
+	<resultMap id="CenterAuditResultMap" type="com.zen.hub.zenhub.model.audit.CenterAudit">
+		<id column="REV" property="rev"/>
+		<id column="REVTYPE" property="revType"/>
+		<id column="ID" property="id"/>
+		<result column="CENTER_PASSWORD" property="centerPassword"/>
+		<result column="CENTER_NAME" property="centerName"/>
+		<result column="CENTER_DESCRIPTION" property="centerDescription"/>
+		<result column="CENTER_OPEN_STATUS" property="centerOpenStatus"/>	
+		<result column="CENTER_PASSWORD_OLD" property="centerPasswordOld"/>
+		<result column="CENTER_NAME_OLD" property="centerNameOld"/>
+		<result column="CENTER_DESCRIPTION_OLD" property="centerDescriptionOld"/>
+		<result column="CENTER_OPEN_STATUS_OLD" property="centerOpenStatusOld"/>	
+		<result column="CENTER_MODIFIEDDATE" property="centerModifiedDate" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>
+		<result column="CENTER_MODIFIEDBY" property="centerModifiedBy"/>													
+	</resultMap>
+	
+	<insert id="insertAudit" parameterType="com.zen.hub.zenhub.model.audit.CenterAudit" useGeneratedKeys="true" keyProperty="audit.rev" keyColumn="rev">
+    	insert into CENTER_AUDIT
+    	(REVTYPE,ID,CENTER_PASSWORD,CENTER_NAME,CENTER_DESCRIPTION,CENTER_OPEN_STATUS,CENTER_PASSWORD_OLD,CENTER_NAME_OLD,CENTER_DESCRIPTION_OLD,CENTER_OPEN_STATUS_OLD,CENTER_MODIFIEDDATE,CENTER_MODIFIEDBY)   	
+    	VALUES (
+    	#{audit.revType, jdbcType=NUMERIC},
+    	#{audit.id, jdbcType=NUMERIC},
+    	#{audit.centerPassword, jdbcType=VARCHAR},
+    	#{audit.centerName, jdbcType=VARCHAR},
+		#{audit.centerDescription, jdbcType=VARCHAR},
+		#{audit.centerOpenStatus, jdbcType=BOOLEAN},	 
+    	#{audit.centerPasswordOld, jdbcType=VARCHAR},
+    	#{audit.centerNameOld, jdbcType=VARCHAR},
+		#{audit.centerDescriptionOld, jdbcType=VARCHAR},
+		#{audit.centerOpenStatusOld, jdbcType=BOOLEAN},					
+		#{audit.centerModifiedDate, jdbcType=DATE},	
+		#{audit.centerModifiedBy, jdbcType=VARCHAR}																																										
+    	)
+    </insert>
+
+</mapper>
