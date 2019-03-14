@@ -53,7 +53,9 @@ public class CenterAudit extends Center implements AuditEntity {
 			audit.setCenterPassword(newValue.getCenterPassword());
 			audit.setCenterName(newValue.getCenterName());
 			audit.setCenterDescription(newValue.getCenterDescription());
-			audit.setCenterOpenStatus(newValue.isCenterOpenStatus());			
+			audit.setCenterOpenStatus(newValue.isCenterOpenStatus());
+			audit.setCenterModifiedDate(newValue.getCenterModifiedDate());
+			audit.setCenterModifiedBy(newValue.getCenterModifiedBy());
 		}
 		
 		if (oldValue != null) {
@@ -61,7 +63,8 @@ public class CenterAudit extends Center implements AuditEntity {
 			audit.setCenterNameOld(oldValue.getCenterName());
 			audit.setCenterDescriptionOld(oldValue.getCenterDescription());
 			audit.setCenterOpenStatusOld(oldValue.isCenterOpenStatus());			
-			
+			audit.setCenterModifiedDate(oldValue.getCenterModifiedDate());
+			audit.setCenterModifiedBy(oldValue.getCenterModifiedBy());			
 		}
 		
 		return audit;

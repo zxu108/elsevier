@@ -41,9 +41,9 @@ public class AuditServiceFactory {
 		}
 		
 		switch(functionName) {
-		case ("Center"): 
+		case ("CenterAudit"): 
 			return centerAuditService;
-		case ("CustomerInfo"):
+		case ("CustomerInfoAudit"):
 			return zen1Auditservice;
 		default:
 			throw new UnsupportedOperationException();
