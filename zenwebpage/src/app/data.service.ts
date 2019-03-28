@@ -11,12 +11,4 @@ export class DataService {
 
  constructor(private http: HttpClient) { }
 
-  getCustInfo() {
-    const url = 'api/v1/test/CustInfo/1';
-  return this.http.get(url, {headers: this.headers});
-  }
-
-//  private handleError(error: any) {
-//    return Observable.throw(error.error);
-//  }
 }

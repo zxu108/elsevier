@@ -7,157 +7,23 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
-@mixin themable($theme-name, $theme-map) {
-       .bw {
-           .left  {
-           		.left_upper {
-           			.card {
-           			 width: 100%;
-           			}
-           			.h1_class {
-           			  color: #000000; /* Grey text */ 
-           			  text-align: center;
-           			  font-size: 3rem;
-           			}
-           			
-           			button {
-           			    border: none;
-           			    outline: 0;
-           			    display: inline-block;
-           			    padding: 8px;
-           			    color: white;
-           			    background-color: gray;
-           			    text-align: center;
-           			    cursor: pointer;
-           			    width: 100%;
-           			    font-size: 1.5rem;
-           			}
-           			
-           		}
-           		
-           		.bpu {
-           			
-               		.bpv {
-               		    position: relative;
-               		    z-index: 2;
-               		    display: inline-block;
-               		    padding-left: 1em;
-               		    padding-right: 1em;
-               		    color: white;
-               		    vertical-align: middle;
-               		    background-color: gray;
-               		}
-           			
-           		    position: relative;
-           		    font-size: 12px;
-           		    line-height: 20px;
-           		    text-align: center;
-           		    text-transform: uppercase;
-           		}
- 
-           		// This is to draw a line besides the text
-           		.bpu:before {
-           		    position: absolute;
-           		    top: 50%;
-           		    display: block;
-           		    content: "";
-           		    width: 100%;
-           		    height: 1px;
-           		    background-color: #434857;
-           		}
-        		
-           		.bpw {
-           		  margin-top: 0;
-           		  margin-bottom: 0;
-           		  font-size: 100%;
-           		  color: inherit; }
-           		
-           		.left_lower {
-           			font-size: 2rem;
-           			text-align: left;
-           		}		
-           	 font-size: 3rem;  
-           }
-           
-           .right {
-         		.right_upper {
-           			font-size: 1.5rem;
-           		}
-           		.right_lower {
-           			font-size: 2rem;
-           		}		
-               font-size: 1.5rem;
-           }
-       }
-
-       .bw, .right, .left_upper, .left_lower, .right_upper, .right_lower {
-           position: relative;
-       }
-
-//       .button {
-//           border: 0;
-//           border-radius: 10px;
-//           bottom: 10px;
-//           cursor: pointer;
-//           font-size: 2rem;
-//           font-weight: bold;
-//           padding: 1em 2em;
-//           position: absolute;
-//           right: 10px;
-//       }
-
-       // Loop through each of the keys (sections)
-       @each $section, $map in $theme-map {
-           @if ($section == container) {
-               .bw {
-                   background-color: map-get($map, bg);
-                   border: 1px solid map-get($map, border-color);
-                   display: flex;
-               		flex-wrap: wrap;
-                   justify-content: space-between;
-//               		align-items: center;
-                   margin: 10px;
-                   padding: 1rem;
-//                   width: 100%;
-               }
-           } @else {
-               .#{$section} {
-                   background-color: map-get($map, bg);
-                   color: map-get($map, color);
-//                   		&:hover{
-//  					 		color: darken(#FF0FFF, 10%);
-// 						}  
-
-                 @if ($section != button) {
-   					height: map-get($map, height);
-   					width: map-get($map, width);
-				} @else {
-//   					&:hover {
-//       				background-color: lighten(map-get($map, bg), 20%);
-//   					}
-				}
-               }
-           }
-       }
-   }
-
-
-@include media-breakpoint-only(xs) {
-@include themable(theme-xs, $theme-xs);
+#tCreateTest {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    float: none;
 }
 
-@include media-breakpoint-only(sm) {
-@include themable(theme-sm, $theme-sm);
+#tCreateTest1 {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    float: none;
 }
 
-@include media-breakpoint-only(md) {
-@include themable(theme-md, $theme-md);
-}
-
-@include media-breakpoint-only(lg) {
-@include themable(theme-lg, $theme-lg);
-}
-
-@include media-breakpoint-only(xl) {
-@include themable(theme-xl, $theme-xl);
-}

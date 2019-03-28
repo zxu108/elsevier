@@ -1,39 +1,61 @@
-<div class="bw">
-	<div *ngFor="let alert of alerts"> 
-		<alert [type]="alert.type" dismissible="true"> {{alert.msg}} </alert>
-	</div>
-       <div class="left">
-           <div class="left_upper form-horizontal">
-           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
-           		<img class="img-rounded" [src]= "logoToShow" alt="Place image title" *ngIf="!isImageLoading; else noImageFound" height="80" width="80"> 
-           </div>  
-           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-           <h1 class="h1_class">{{ct.centerName}}</h1>
-           </div>
-           <p><button>{{ct.centerCity}},  {{ct.centerState}},  {{ct.centerZipCode}}</button></p>
-           </div>
-           
+<div class="container-fluid">
  
-           		<div class="bpu">
-           			<h3 class="bpv bpw">About The Center</h3>
-           		</div>
-           		
-           <div class="left_lower">
-           		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-           			{{ct.centerDescription}}
-           		</div>
-           		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-           			<div #gmap style="width:100%;height:300px" ></div>
-           		</div>
-           </div>
-       </div>
-       <div class="right">
-       		<div class="right_upper">
-       		   <p> this is user's review rating and comments <p>
-       		</div>
-       		<div class="right_lower">  
-       		this is David
-       		<canvas id="canvas">{{chart}}</canvas>
-       	</div>
-       </div>
+<div class="pull-right">
+	<label class="control-label text-right" for="select1">Patient IDs: </label>
+	<div>
+	<select id="select1" class="custom-select" (change)="selectId($event)">
+		<option *ngFor="let idval of pIds" value= {{idval}}>
+		{{idval}}
+		</option>
+	</select>
+	</div>
+</div>
+
+<hr class="divider">
+
+<div id="tCreateTest"  *ngIf="loading">
+<img class="logo" style="max-width:50px;" src="assets/images/spinner.gif" />
+</div>
+
+<div class='form-group'>
+<div class="col-lg-2 col-sm-2 col-md-2">
+<label>Name: </label> <span> {{patientInfo.name[0].text}}</span>
+</div>
+
+<div class="col-lg-2 col-sm-2 col-md-2">
+<label>Gender: </label> <span> {{patientInfo.gender}}</span>
+</div>
+
+<div class="col-lg-2 col-sm-2 col-md-2">
+<label>Date Of Birth: </label> <span> {{patientInfo.birthDate}}</span>
+</div>
+
+</div>
+
+<br>
+<br>
+
+<table class="table table-bordered table-striped table-hover">
+<thead>
+  <tr>
+    <th class="col-lg-4 col-sm-4 col-md-4" (click)="resorting('1')"><span>Condition Name</span><span class="glyphicon glyphicon-resize-vertical"></span></th>
+    <th class="col-lg-2 col-sm-2 col-md-2" (click)="resorting('2')"><span>Date Recorded</span><span class="glyphicon glyphicon-resize-vertical"></span></th>
+  </tr>
+</thead>
+<tbody>
+<tr *ngFor="let item of patientConditions | slice: (page-1)*pageSize : page*pageSize">
+	<td (click)="conditionClicked($event)">
+  		{{item.resource.code.text}} <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term= {{item.resource.code.text}}" target="_blank"> <span class="glyphicon glyphicon-info-sign"></span></a>
+  	</td>  
+  <td>
+  		{{item.resource.dateRecorded}}
+  </td>
+</tr>
+</tbody>
+</table>
+
+<div id="tCreateTest1">
+<ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalEntries" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</div>
+
 </div>

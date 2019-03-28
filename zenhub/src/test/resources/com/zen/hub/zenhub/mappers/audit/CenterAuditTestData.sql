@@ -1,3 +1,0 @@
-truncate table CENTER_AUDIT;
-
-insert into CENTER_AUDIT (REV, REVTYPE, ID, CENTER_PASSWORD, CENTER_NAME, CENTER_DESCRIPTION, CENTER_OPEN_STATUS, CENTER_PASSWORD_OLD, CENTER_NAME_OLD, CENTER_DESCRIPTION_OLD,CENTER_OPEN_STATUS_OLD, CENTER_MODIFIEDDATE, CENTER_MODIFIEDBY) values (1, 2, 1, 'passWord1', 'Test Center 1', 'This is the first printer center', true, 'passWordold1', 'Test Center old 1', 'This is the first printer center for old', false, '2018-11-08 18:02:00', 'test1');

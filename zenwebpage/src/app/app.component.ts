@@ -16,12 +16,6 @@ export class AppComponent implements AfterContentInit {
   constructor(private data: DataService) { }
 
   ngAfterContentInit(): void {
-       this.data.getCustInfo().subscribe(
-      resultObj => {this.csu = resultObj;
-                    console.log('result');
-                    console.log(this.csu);
-                  }
-       );
   }
 }
 

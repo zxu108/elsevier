@@ -1,11 +1,7 @@
-/// <reference types="@types/googlemaps" />
-import { Component, AfterContentInit, SecurityContext, NgZone, OnInit, ViewChild} from '@angular/core';
+import { Component, AfterContentInit, SecurityContext, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
 import { CenterDataService } from './center.service';
-import { MapsAPILoader} from '@agm/core';
-
-declare var google: any;
 
 @Component({
   templateUrl: './center.component.html',
@@ -13,135 +9,92 @@ declare var google: any;
 })
 
 export class CenterComponent implements AfterContentInit, OnInit {
-  title = 'zenwebbodypage';
-  @ViewChild('gmap') gmapElement: any;
-  ct: Object;
-  chart = []; // This will hold our chart info
+  title = 'patientCenterpage';
   alerts = [];
-  logoToShow: any;
-  isImageLoading: boolean = false;
-  geocoder: google.maps.Geocoder;
-  map: google.maps.Map;
+  loading: boolean = true;
 
-  public lat: number; 
-  public lng: number; 
-  public zoom: number;
- 
-  constructor(public mapsApiLoader: MapsAPILoader, private data: CenterDataService, private sanitizer: DomSanitizer, private ngZone: NgZone) {
-	  
-	  this.mapsApiLoader.load().then(() => {
-	      this.geocoder = new google.maps.Geocoder();
-	    });
+  patientConditions: any[];
+  patientInfo: any;
+  pageSize: number = 15;
+  patientId: string = '4342009';
+  sortOrderName: boolean = true;
+  sortOrderDate: boolean = true;
+  
+  page: number = 1;
+  totalEntries: number;
+  
+  pIds: Array<string> = ['4342009', '4342010', '4342011', '4342012']; // known patient ID list
+
+  constructor(private data: CenterDataService, private sanitizer: DomSanitizer) {
   }
 		  
   ngAfterContentInit(): void {
-	  this.getCenter(16);
-	  this.displayChart();
-	  this.getImageFromService();
+	  this.getPatient(this.patientId); //4342009-4342012
+	  this.getPatientConditions(this.patientId);
   }
   
   ngOnInit() {
-	  console.log('before 1');
-	  this.initializGMap();
-	  console.log('before');
-	  	  
-	  this.findLocation('3 isabella ct, hockessin, De 19707');
   }
-	  
-  // This service retrieves an image from backend database through controller and pass to html 
-  // for display
-  // Zhengyi Xu 
-  // 2/27/2019
-  getImageFromService() {
-      this.isImageLoading = true;
-      this.data.getCenterLogo('centerId1').subscribe(rslt => {
-        this.createImageFromBlob(rslt);
-        this.isImageLoading = false;
-      }, error => {
-        this.isImageLoading = false;
-        console.log(error);
-      });
-  }
-  
-  createImageFromBlob(image: Blob) {
-	   let reader = new FileReader();
-	   reader.addEventListener("load", () => {
-		   this.logoToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result);
-	   }, false);
-
-	   if (image) {
-	      reader.readAsDataURL(image);
-	   }
-	}
-  
-  getCenter(Id: number): void {
-	  	this.data.getCenterDetail(Id).subscribe(		 
-	       resultObj => {this.ct = resultObj;
-	                    console.log('result');
-	                    console.log(this.ct);
+	 
+  getPatient(Id: string): void {
+	  	this.data.getPatient(Id).subscribe(		 
+	       resultObj => {
+	                    this.patientInfo = resultObj;
 	                  },	       
 	       (error:any) => {
-	    	   console.log('get center infor unsuccessful: '+error.message);
+	    	   console.log('get patient infor unsuccessful: '+error.message);
 	    	   this.alerts.push ({
 	    		   type: 'danger',
 	    		   msg: 'Error! fetch data error: '+error.message
 	    	   });
 	       });
+}
+
+  getPatientConditions(Id: string): void {
+	  	this.data.getPatientConditions(Id).subscribe(		 
+	       resultObj => {
+	                    this.patientConditions = resultObj.entry;
+	                    this.totalEntries = resultObj.total;
+	                    this.loading = false;
+	                  },	       
+	       (error:any) => {
+	    	   console.log('get patient condition infor unsuccessful: '+error.message);
+	    	   this.loading = false;
+	    	   this.alerts.push ({
+	    		   type: 'danger',
+	    		   msg: 'Error! fetch data error: '+error.message
+	    	   });
+	       });
+}
+
+  resorting(id: string): void {
+	if (id ==='1') {
+		if (this.sortOrderName === true) {
+			this.patientConditions.sort(function(a,b){return a.resource.code.text.localeCompare(b.resource.code.text)})
+			this.sortOrderName = false;
+		} else {
+			this.patientConditions.sort(function(a,b){return b.resource.code.text.localeCompare(a.resource.code.text)})
+			this.sortOrderName = true;	
+		}		
+	}
+	
+	if (id ==='2') {
+		if (this.sortOrderDate === true) {
+			this.patientConditions.sort(function(a,b){return a.resource.dateRecorded.localeCompare(b.resource.dateRecorded)})
+			this.sortOrderDate = false;
+		} else {
+			this.patientConditions.sort(function(a,b){return b.resource.dateRecorded.localeCompare(a.resource.dateRecorded)})
+			this.sortOrderDate = true;	
+		}		
+	}	
   }
   
-  displayChart(): void {
-  this.chart = new Chart('canvas', {
-  type: 'bar',
-  data: {
-    labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-    datasets: [
-      {
-        label: "Population (millions)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,5267,734,784,433]
-      }
-    ]
-  },
-  options: {
-    legend: { display: false },
-    title: {
-      display: true,
-      text: 'Predicted world population (millions) in 2050'
-    }
+  
+  selectId(event): void {
+	  this.patientId = event.target.value;
+	  this.loading=true;
+	  this.getPatient(this.patientId); 
+	  this.getPatientConditions(this.patientId);  
   }
-  });
-  }
-  
-  // this function initialize the google map services
-  initializGMap(): void {
-	    this.geocoder = new google.maps.Geocoder();
-	    let mapProp = {
-	    	      center: new google.maps.LatLng(18.5793, 73.8143),
-	    	      zoom: 10,
-	    	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	    	    };
-	    	    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-	  }
-  
-  // this function converts address to lat and lng location for google map
-  findLocation(address): void {
-	    if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
-	    this.geocoder.geocode({
-	      'address': address
-	    }, (results, status) => {
-	      if (status == google.maps.GeocoderStatus.OK) {
-	    	  this.map.setZoom(10);
-	    	  this.map.setCenter(results[0].geometry.location);
-	    	  this.lat = results[0].geometry.location.lat();
-	    	  this.lng = results[0].geometry.location.lng();
-	          var marker = new google.maps.Marker({
-	              map: this.map,
-	              position: results[0].geometry.location
-	          });
-	      } else {
-	        alert("Sorry, this search produced no results for the reason: "+ status);
-	      }
-	    })
-	  }
-  
+ 
 }

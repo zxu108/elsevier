@@ -13,16 +13,14 @@ export class CenterDataService {
 
   constructor(private http: HttpClient) { }
 
-  getCenterDetail(id: number): Observable<any> {
-  const url = 'api/v1/center/' + id.toString();
-  return this.http.get(url, {headers: this.headers})
-  }
-   
-  getCenterLogo(centerId: string): Observable<Blob> {
-	    return this.http.get('api/v1/center/Log/'+centerId, {responseType: "blob"});
+  getPatient(patientId: string): Observable<any> {
+	  const url = 'https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Patient/' + patientId.toString();
+	  return this.http.get(url, {headers: this.headers})
 	}
-  
-  getlatlng(address: string): Observable<any> {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAi1hgsq5UmT-y4VjBKqqlqGN8fbYP8ODg&address=' + address);
-  }
+
+  getPatientConditions(patientId: string): Observable<any> {
+	  const url = 'https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Condition?patient=' + patientId.toString();
+	  return this.http.get(url, {headers: this.headers})
+	}
+	  
 }
