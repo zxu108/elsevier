@@ -1,7 +1,0 @@
-Once the code is cloned from repo. Two things need to do to make it work:
-
-1. In zenhub project, set up JDK with the build path
-2. In zenwebpage, go to that folder in command window and execute: npm install
-
-To run the application, go to zenhubparent, compile a jar file with pom, in command window, execute: 
-	java -jar -Dspring.profiles.active=local,nonEmbedded zenhub-0.0.1-SNAPSHOT.jar
